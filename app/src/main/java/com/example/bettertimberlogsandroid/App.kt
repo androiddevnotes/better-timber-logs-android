@@ -1,5 +1,6 @@
 package com.example.bettertimberlogsandroid
 
+import ClickableLineNumberDebugTree
 import android.app.Application
 import timber.log.Timber
 

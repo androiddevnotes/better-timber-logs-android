@@ -18,6 +18,27 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         Timber.d("Hello MainActivity")
+        val sampleJson = """
+    {
+        "name": "John Doe",
+        "age": 30,
+        "isStudent": false,
+        "courses": [
+            "mathematics",
+            "history",
+            "chemistry"
+        ],
+        "address": {
+            "street": "123 Main St",
+            "city": "New York",
+            "state": "NY",
+            "postalCode": "10001"
+        }
+    }
+""".trimIndent()
+
+        Timber.d(sampleJson)
+
         setContent {
             BetterTimberLogsAndroidTheme {
                 // A surface container using the 'background' color from the theme

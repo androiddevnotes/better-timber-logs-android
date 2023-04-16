@@ -9,6 +9,7 @@ lifecycle-runtime-ktx = "2.3.1"
 activity-compose = "1.5.1"
 compose-bom = "2022.10.00"
 timber = "5.0.1"
+gson = "2.8.8"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -26,6 +27,7 @@ ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "com-android-application" }

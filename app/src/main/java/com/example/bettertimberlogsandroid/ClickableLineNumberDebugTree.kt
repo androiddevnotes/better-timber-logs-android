@@ -1,13 +1,17 @@
-package com.example.bettertimberlogsandroid
-
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import timber.log.Timber
 
 class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Timber.DebugTree() {
 
+    private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
+
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         findLogCallStackTraceElement()?.let { element ->
             val lineNumberInfo = "(${element.fileName}:${element.lineNumber})"
-            val updatedMessage = "$lineNumberInfo: $message"
+            val formattedMessage = formatJsonIfNeeded(message)
+            val updatedMessage = "$lineNumberInfo: $formattedMessage"
             super.log(priority, "$globalTag-$tag", updatedMessage, t)
         } ?: run {
             super.log(priority, "$globalTag-$tag", message, t)
@@ -29,6 +33,15 @@ class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Tim
             } else {
                 foundDebugTree && !element.className.contains("Timber")
             }
+        }
+    }
+
+    private fun formatJsonIfNeeded(message: String): String {
+        return try {
+            val jsonElement = JsonParser.parseString(message)
+            gson.toJson(jsonElement)
+        } catch (e: Exception) {
+            message
         }
     }
 }
