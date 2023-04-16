@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         Timber.d("Hello MainActivity")
-        val sampleJson = """
+        val sampleJson = """some random non-json string ;adn{[][
 {"name":"John Doe","age":30,"isStudent":false,"courses":["mathematics","history","chemistry"],"address":{"street":"123 Main St","city":"New York","state":"NY","postalCode":"10001"}}
 """.trimIndent()
 
