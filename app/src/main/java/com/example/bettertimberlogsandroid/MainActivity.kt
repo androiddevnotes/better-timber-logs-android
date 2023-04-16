@@ -11,10 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.bettertimberlogsandroid.ui.theme.BetterTimberLogsAndroidTheme
+import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Timber.d("Hello MainActivity")
         setContent {
             BetterTimberLogsAndroidTheme {
                 // A surface container using the 'background' color from the theme

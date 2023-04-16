@@ -15,7 +15,7 @@ class ClickableLineNumberDebugTree : Timber.DebugTree() {
     }
 
     override fun createStackElementTag(element: StackTraceElement): String? {
-        return element.className
+        return element.fileName
     }
 
     private fun findLogCallStackTraceElement(): StackTraceElement? {
