@@ -2,15 +2,15 @@ package com.example.bettertimberlogsandroid
 
 import timber.log.Timber
 
-class ClickableLineNumberDebugTree : Timber.DebugTree() {
+class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Timber.DebugTree() {
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         findLogCallStackTraceElement()?.let { element ->
             val lineNumberInfo = "(${element.fileName}:${element.lineNumber})"
             val updatedMessage = "$lineNumberInfo: $message"
-            super.log(priority, tag, updatedMessage, t)
+            super.log(priority, "$globalTag-$tag", updatedMessage, t)
         } ?: run {
-            super.log(priority, tag, message, t)
+            super.log(priority, "$globalTag-$tag", message, t)
         }
     }
 
