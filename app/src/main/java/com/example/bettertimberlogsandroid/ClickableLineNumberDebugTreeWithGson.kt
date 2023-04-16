@@ -5,7 +5,7 @@ import timber.log.Timber
 import java.util.regex.Pattern
 
 /**
- * Unused in this project, but can be used to replace the ClickableLineNumberDebugTree class if you do not prefer Moshi
+ * Unused in this project, but can be used to replace the BetterTimberDebugTree class if you do not prefer Moshi
  */
 class ClickableLineNumberDebugTreeWithGson(private val globalTag: String = "GTAG") : Timber.DebugTree() {
 
@@ -32,7 +32,7 @@ class ClickableLineNumberDebugTreeWithGson(private val globalTag: String = "GTAG
         var foundDebugTree = false
 
         return stackTrace.firstOrNull { element ->
-            if (element.className.contains("ClickableLineNumberDebugTree")) {
+            if (element.className.contains("BetterTimberDebugTree")) {
                 foundDebugTree = true
                 false
             } else {

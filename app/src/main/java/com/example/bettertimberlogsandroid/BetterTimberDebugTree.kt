@@ -4,7 +4,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import timber.log.Timber
 import java.util.regex.Pattern
 
-class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Timber.DebugTree() {
+class BetterTimberDebugTree(private val globalTag: String = "GTAG") : Timber.DebugTree() {
 
     private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     private val jsonPattern: Pattern = Pattern.compile("(\\{(?:[^{}]|(?:\\{(?:[^{}]|(?:\\{[^{}]*\\}))*\\}))*\\})")
@@ -29,7 +29,7 @@ class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Tim
         var foundDebugTree = false
 
         return stackTrace.firstOrNull { element ->
-            if (element.className.contains("ClickableLineNumberDebugTree")) {
+            if (element.className.contains("BetterTimberDebugTree")) {
                 foundDebugTree = true
                 false
             } else {
