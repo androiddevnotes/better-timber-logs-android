@@ -19,22 +19,7 @@ class MainActivity : ComponentActivity() {
 
         Timber.d("Hello MainActivity")
         val sampleJson = """
-    {
-        "name": "John Doe",
-        "age": 30,
-        "isStudent": false,
-        "courses": [
-            "mathematics",
-            "history",
-            "chemistry"
-        ],
-        "address": {
-            "street": "123 Main St",
-            "city": "New York",
-            "state": "NY",
-            "postalCode": "10001"
-        }
-    }
+{"name":"John Doe","age":30,"isStudent":false,"courses":["mathematics","history","chemistry"],"address":{"street":"123 Main St","city":"New York","state":"NY","postalCode":"10001"}}
 """.trimIndent()
 
         Timber.d(sampleJson)

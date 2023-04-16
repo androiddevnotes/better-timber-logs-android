@@ -1,11 +1,15 @@
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okio.Buffer
 import timber.log.Timber
 
 class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Timber.DebugTree() {
 
-    private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
+    private val moshi: Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         findLogCallStackTraceElement()?.let { element ->
@@ -37,9 +41,13 @@ class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Tim
     }
 
     private fun formatJsonIfNeeded(message: String): String {
+        val jsonAdapter: JsonAdapter<Any> = moshi.adapter(Any::class.java).indent("  ")
+
         return try {
-            val jsonElement = JsonParser.parseString(message)
-            gson.toJson(jsonElement)
+            val buffer = Buffer().writeUtf8(message)
+            val jsonReader = JsonReader.of(buffer)
+            val value = jsonAdapter.fromJson(jsonReader)
+            jsonAdapter.toJson(value)
         } catch (e: Exception) {
             message
         }

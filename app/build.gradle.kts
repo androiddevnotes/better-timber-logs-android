@@ -61,7 +61,8 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.timber)
     implementation(libs.gson)
-
+    implementation(libs.moshi)
+    implementation(libs.moshi.kotlin)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
