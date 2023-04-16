@@ -1,12 +1,15 @@
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import timber.log.Timber
 import java.util.regex.Pattern
 
-class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Timber.DebugTree() {
+/**
+ * Unused in this project, but can be used to replace the ClickableLineNumberDebugTree class if you do not prefer Moshi
+ */
+class ClickableLineNumberDebugTreeWithGson(private val globalTag: String = "GTAG") : Timber.DebugTree() {
 
-    private val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
     private val jsonPattern: Pattern = Pattern.compile("(\\{(?:[^{}]|(?:\\{(?:[^{}]|(?:\\{[^{}]*\\}))*\\}))*\\})")
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
@@ -44,9 +47,8 @@ class ClickableLineNumberDebugTree(private val globalTag: String = "GTAG") : Tim
 
         while (matcher.find()) {
             try {
-                val jsonAdapter: JsonAdapter<Any> = moshi.adapter(Any::class.java).indent("  ")
-                val parsedObject = jsonAdapter.fromJson(matcher.group())
-                val formattedJson = jsonAdapter.toJson(parsedObject)
+                val jsonElement = JsonParser.parseString(matcher.group())
+                val formattedJson = gson.toJson(jsonElement)
                 matcher.appendReplacement(buffer, formattedJson)
             } catch (e: Exception) {
                 // Ignore and continue with the next JSON object
